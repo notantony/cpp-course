@@ -1,3 +1,3 @@
-#hw1:
-sub->a-b
+hw1:  
+sub->a-b  
 mul->a*b
