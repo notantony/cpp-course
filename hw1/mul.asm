@@ -54,19 +54,17 @@ add_long_long:
 ;   (#1 * #2) % mod is written to rdi
 
 mul_long_long:          ;RAX(mul), RCX(len), RDX(mul), RBX(ans), RSP->ans, RBP:(((, RSI(add)->, RDI(add,add->)
-    push    rdi         ;rdi -> #1
     push    rsi         ;rsi -> #2
     push    rcx         ;return to #2 location
+    push    rdi         ;rdi -> #1                      ;rsi->rcx->rdi
 
-    sub     rsp, 128 * 8
+    sub     rsp, 128 * 8                                ;rsi->rcx->rdi->[...]
     mov     rbx, rdi    ;store rdi
     mov     rdi, rsp
     call    set_zero
     mov     rdi, rbx    ;get rdi
     mov     rbx, rsp
 
-    push    rsi
-    push    rdi
     .big_loop:
         push    rcx
         push    rsi
@@ -79,7 +77,7 @@ mul_long_long:          ;RAX(mul), RCX(len), RDX(mul), RBX(ans), RSP->ans, RBP:(
             xor     r8, r8
             adc     r8, 0
 
-            add     [rbx], rdx
+            add     [rbx], rdx  ;
             adc     r8, 0
 
             mov     rax, [rsi]  ;lower part
@@ -101,18 +99,21 @@ mul_long_long:          ;RAX(mul), RCX(len), RDX(mul), RBX(ans), RSP->ans, RBP:(
         dec     rcx
         jnz     .big_loop
 
-    pop     rdi
-    pop     rsi
-
+    sub     rbx, 128 * 8
     mov     rcx, 128
-    call    set_zero
-    mov     rsi, rsp
-    call    add_long_long
+    add     rsp, 128 * 8    ;rsi->rcx->rdi->[...]
+    pop     rdi             ;rsi->rcx->rdi
 
-    add rsp, 128 * 8
+    .copy_loop:
+        mov     r9, [rbx]
+        mov     [rdi], r9
+        lea     rbx, [rbx + 8]
+        lea     rdi, [rdi + 8]
+        dec     rcx
+    jnz .copy_loop
+    sub rdi, 128 * 8
     pop rcx
     pop rsi
-    pop rdi
     ret
 
 

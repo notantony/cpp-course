@@ -5,10 +5,11 @@ _start:
     sub     rsp, 2 * 128 * 8
     lea     rdi, [rsp + 128 * 8]
     mov     rcx, 128
-    call    read_long;read #1 to rsp+128*8
+    call    read_long   ;read #1 to rsp+128*8
     mov     rdi, rsp
-    call    read_long;read #2 to rsp
-    lea     rsi, [rsp + 128 * 8]
+    call    read_long   ;read #2 to rsp
+    lea     rsi, [rsp]
+    lea     rdi, [rsp + 128 * 8]
     call    sub_long_long;rdi -> #2, rsi -> #1
 
     call    write_long
@@ -48,7 +49,7 @@ add_long_long:
 ;   rsi -- address of long #1
 ;   rcx -- length of longs in qwords
 ;result:
-;   (#1 - #2)%mod is written to rdi
+;   (#2 - #1)%mod is written to rdi
 sub_long_long:
     push rdi
     push rsi
@@ -56,8 +57,8 @@ sub_long_long:
 
     clc
 .loop:
-    mov rax, [rdi]
-    sbb [rsi], rax
+    mov rax, [rsi]
+    sbb [rdi], rax
     lea rdi, [rdi+8]
     lea rsi, [rsi+8]
     dec rcx
@@ -66,9 +67,6 @@ sub_long_long:
     pop rcx
     pop rsi
     pop rdi
-    mov     rcx, 128
-    call    set_zero
-    call    add_long_long
     ret
 
 
