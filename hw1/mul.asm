@@ -75,19 +75,19 @@ mul_long_long:          ;RAX(mul), RCX(len), RDX(mul), RBX(ans), RSP->ans, RBP:(
         xor     r8, r8
         clc
         .loop:
-            add     [rbx], r8
+            add     [rbx], r8   ;get carry
             xor     r8, r8
             adc     r8, 0
 
             add     [rbx], rdx
             adc     r8, 0
 
-            mov     rax, [rsi]
-            mov     rdx, [rdi]
+            mov     rax, [rsi]  ;lower part
+            mov     rdx, [rdi]  ;upper part
             mul     rdx
 
             add     [rbx], rax
-            adc     r8, 0
+            adc     r8, 0       ;put carry
 
             lea     rbx, [rbx+8]
             lea     rsi, [rsi+8]

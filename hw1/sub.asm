@@ -43,12 +43,12 @@ add_long_long:
     pop     rdi
     ret
 
-;subs two longs
+;subtracts two longs
 ;   rdi -- address of long #2
 ;   rsi -- address of long #1
 ;   rcx -- length of longs in qwords
 ;result:
-;   sub(#1 - #2)%mod is written to rdi
+;   (#1 - #2)%mod is written to rdi
 sub_long_long:
     push rdi
     push rsi
