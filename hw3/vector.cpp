@@ -82,10 +82,10 @@ bool vector::operator==(vector const& one) const {
     if (isEmpty || one.isEmpty) {
         return isEmpty == one.isEmpty;
     }
-    if (isSmall != isSmall) {
+    if (isSmall != one.isSmall) {
         return false;
     }
-    if (isSmall && isSmall) {
+    if (isSmall) {
         return num == one.num;
     }
     return *shared.get() == *one.shared.get();
