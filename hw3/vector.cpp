@@ -172,7 +172,7 @@ void vector::resize(size_t size, uint32_t one) {
 }
 
 vector::~vector() {
-    if(isEmpty || isSmall) {
+    if (isEmpty || isSmall) {
         return;
     }
     shared.reset();
