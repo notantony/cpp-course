@@ -5,7 +5,6 @@ project(BIGINT)
 include_directories(${BIGINT_SOURCE_DIR})
 
 add_executable(BIGINT big_integer_testing.cpp big_integer.h big_integer.cpp vector.h vector.cpp gtest/gtest-all.cc gtest/gtest.h gtest/gtest_main.cc)
-#add_executable(BIGINT test.cpp big_integer.h big_integer.cpp vector.h vector.cpp)
 set_property(TARGET BIGINT PROPERTY CXX_STANDARD 11)
 
 
