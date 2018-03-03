@@ -4,9 +4,8 @@
 #include <exception>
 #include <stdexcept>
 
-#define uint128_t unsigned __int128
 
-
+typedef unsigned __int128 uint128_t;
 //util
 
 size_t big_integer::size() const {

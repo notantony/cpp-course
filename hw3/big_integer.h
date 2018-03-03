@@ -3,8 +3,6 @@
 #include <cstddef>
 #include <string>
 
-#define uint128_t unsigned __int128
-
 class big_integer {
 private:
     vector data;
