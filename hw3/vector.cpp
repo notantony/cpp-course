@@ -49,8 +49,22 @@ size_t vector::size() const {
 }
 
 void vector::operator=(vector const& one) {
-    vector tmp(one);
-    swap(tmp);
+    if (!isEmpty && !isSmall){
+        if (!one.isEmpty && !one.isSmall) {
+            shared = one.shared;
+        } else {
+            shared.~__shared_ptr();
+            num = one.num;
+        }
+    } else {
+        if (!one.isEmpty && !one.isSmall) {
+            new (&shared) std::shared_ptr<std::vector<uint32_t>>(one.shared);
+        } else {
+            num = one.num;
+        }
+    }
+    this->isEmpty = one.isEmpty;
+    this->isSmall = one.isSmall;
     //swap(*this, tmp);
 }
 
@@ -175,12 +189,15 @@ vector::~vector() {
     if (isEmpty || isSmall) {
         return;
     }
-    shared.reset();
+    //shared.reset();
+    shared.~__shared_ptr();//fix
+    //shared->~std::shared_ptr<std::vector<uint32_t>>();
+    //~shared();
 }
 
-void vector::swap(vector& one) {
-     std::swap(isEmpty, one.isEmpty);
-     std::swap(isSmall, one.isSmall);
-     std::swap(shared, one.shared);
+void vector::swap(vector& one) {//fix
+    vector tmp(one);
+    one = *this;
+    *this = tmp;
 }
 
