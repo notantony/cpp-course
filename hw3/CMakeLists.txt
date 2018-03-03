@@ -10,8 +10,8 @@ set_property(TARGET BIGINT PROPERTY CXX_STANDARD 11)
 
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -std=c++11")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address,undefined -Werror -D_GLIBCXX_DEBUG")
 endif()
 
-target_link_libraries(BIGINT -lgmp -lgmpxx -lpthread)
+target_link_libraries(BIGINT -lpthread)
