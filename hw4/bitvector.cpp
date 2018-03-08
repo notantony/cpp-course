@@ -1,15 +1,15 @@
 #include "bitvector.h"
-#include <exception>
+#include <stdexcept>
 
 bitvector::bitvector() : released(false), space(0), v(1 + sizeof(size_t)) {}
 
 void bitvector::push(const std::vector<unsigned char> &one) {
 	if (released) {
-		throw std::runtime_error("Cannot push to released bitvector");
+        throw std::runtime_error("Cannot push to released bitvector");
 	}
 	for (size_t i = 0; i < one.size(); i++) {
 		if (space > 0) {
-			space--;
+            space--;
 		} else {
 			v.push_back(0);
 			space = 7;
@@ -24,7 +24,7 @@ const std::vector<unsigned char> &bitvector::release() {
 		v.back() <<= space;
 		v[0] = static_cast<unsigned char>(space);
 		size_t tmp = v.size();
-		for (int i = 0; i < sizeof(size_t); i++) {
+        for (size_t i = 0; i < sizeof(size_t); i++) {
 			v[sizeof(size_t) - i] = static_cast<unsigned char>(tmp & 255);
 			tmp >>= 8;
 		}

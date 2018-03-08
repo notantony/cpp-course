@@ -12,7 +12,8 @@ public:
 
 compressor::compressor(std::vector<uint64_t> &cnt) : leaves(256) {
 	build_tree_c(cnt);
-	walk_c(256 + 255 - 1, std::vector<unsigned char>());
+    std::vector<unsigned char> tmp;
+    walk_c(256 + 255 - 1, tmp);
 }
 
 const std::vector<unsigned char> &compressor::get_tree_code() const {

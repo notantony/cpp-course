@@ -8,7 +8,7 @@
 const size_t BUFFER_SIZE = 4096;
 
 void test(std::ifstream &input) {
-	char c = input.get();
+    input.get();
 	//std::cout << input.eof() << " " << (int)c;
 	if(!input.eof())input.unget();
 }
@@ -23,8 +23,8 @@ void input_check(std::ifstream &input) {
 
 void my_writev(std::ofstream &output, const std::vector<unsigned char> &tmp) {
 	unsigned char buffer[BUFFER_SIZE];
-	for (int i = 0; i < tmp.size(); /*i++*/) {
-		int j = 0;
+    for (size_t i = 0; i < tmp.size(); /*i++*/) {
+        size_t j = 0;
 		for (; j < BUFFER_SIZE && i < tmp.size(); j++, i++) {
 			buffer[j] = tmp[i];
 		}
@@ -45,7 +45,7 @@ bitreader my_readv(std::ifstream &input) {
 	input_check(input);
 	first = reinterpret_cast<unsigned char&>(c);
 	size_t len = 0;
-	for (int i = 0; i < sizeof(size_t); i++) {//TODO
+    for (size_t i = 0; i < sizeof(size_t); i++) {//TODO
 		input.get(c);
 		input_check(input);
 		len = (len << 8) | reinterpret_cast<unsigned char&>(c);
@@ -127,7 +127,12 @@ void decompress(std::ifstream &input, std::ofstream &output) {
 	}
 }
 
+#include<ctime>
+
 int main(int n, char* args[]) {
+
+    int time = clock();
+
 	if (n != 4) {
 		throw std::runtime_error("Wrong number of arguments\nFormat: \"<c/d> <input filename> <output filename>\" \nUse \"c\" for compressing, \"d\" for decompressing");
 		return 1;
@@ -149,6 +154,9 @@ int main(int n, char* args[]) {
 	}
 	input.close();
 	output.close();
+
+
+    std::cout << clock() - time;
 	return 0;
 }
 

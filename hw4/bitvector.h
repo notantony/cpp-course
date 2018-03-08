@@ -2,6 +2,7 @@
 #define BITVECTOR_H
 
 #include <vector>
+#include <cstddef>
 
 
 class bitvector {
@@ -13,12 +14,13 @@ public:
 	void push(const std::vector<unsigned char> &one);
 	const std::vector<unsigned char> &release();
 	void clear();
-	bitvector::bitvector();
+    bitvector();
 };
 
 class bitreader {
 private:
-	int pos, bit, last_space;
+    size_t pos;
+    int bit, last_space;
 	std::vector<unsigned char> v;
 public:
 	bitreader(int space, const std::vector<unsigned char> &one);
