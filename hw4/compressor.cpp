@@ -43,6 +43,7 @@ void compressor::walk_c(int x, std::vector<unsigned char> &cur) {
 		leaves[global] = x;
 		tree[x].leaf = global++;
 		coded_tree.push_back(0);//up
+		codes[x] = cur;
 		return;
 	}
 	coded_tree.push_back(1);//down
@@ -60,23 +61,23 @@ const std::vector<unsigned char> &compressor::get_code(unsigned char i) const {
 	return codes[i];
 }
 
-compressor::compressor(bitreader one, const std::vector<unsigned char> &leaves) : mode_c(false), tree(1), coded_tree(one.to_vector()) {
+compressor::compressor(bitreader one, const std::vector<unsigned char> &leaves) : mode_c(false), tree(1, node(-1)), coded_tree(one.to_vector()), leaves(leaves) {
 	int tmp = 0;
 	walk_d(0, tmp);
 }
 
-void compressor::walk_d(int x, int &index) {
+void compressor::walk_d(size_t x, int &index) {
 	if (coded_tree[index] == 0) {
 		tree[index].leaf = global++;
 		index++;
 		return;
 	}
-	tree[x].l = tree.size();
+	tree[x].l = static_cast<int>(tree.size());
 	tree.push_back(node(-1));
 	index++;
 	walk_d(tree.size() - 1, index);
 
-	tree[x].r = tree.size();
+	tree[x].r = static_cast<int>(tree.size());
 	tree.push_back(node(-1));
 	walk_d(tree.size() - 1, index);
 }

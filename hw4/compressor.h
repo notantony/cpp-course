@@ -1,3 +1,6 @@
+#ifndef COMPRESSOR_H
+#define COMPRESSOR_H
+
 #include <fstream>
 #include <iostream>
 #include <exception>
@@ -27,7 +30,7 @@ private:
 	void build_tree_c(std::vector<uint64_t> &cnt);
 	void walk_c(int x, std::vector<unsigned char> &cur);
 
-	void walk_d(int x, int &index);
+	void walk_d(size_t x, int &index);
 public:
 	compressor(std::vector<uint64_t> &cnt);//compressing constructor
 	const std::vector<unsigned char> &get_tree_code() const;
@@ -38,3 +41,6 @@ public:
 	unsigned char get_char(bitreader &br) const;//can be called only when decompressing
 
 };
+
+
+#endif

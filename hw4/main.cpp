@@ -7,6 +7,12 @@
 
 const size_t BUFFER_SIZE = 4096;
 
+void test(std::ifstream &input) {
+	char c = input.get();
+	//std::cout << input.eof() << " " << (int)c;
+	if(!input.eof())input.unget();
+}
+
 void input_check(std::ifstream &input) {
 	if (input.bad()) {
 		throw std::runtime_error("Error while reading input file");
@@ -17,7 +23,7 @@ void input_check(std::ifstream &input) {
 
 void my_writev(std::ofstream &output, const std::vector<unsigned char> &tmp) {
 	unsigned char buffer[BUFFER_SIZE];
-	for (int i = 0; i < tmp.size(); i++) {
+	for (int i = 0; i < tmp.size(); /*i++*/) {
 		int j = 0;
 		for (; j < BUFFER_SIZE && i < tmp.size(); j++, i++) {
 			buffer[j] = tmp[i];
@@ -37,14 +43,14 @@ bitreader my_readv(std::ifstream &input) {
 	int first;
 	input.get(c);
 	input_check(input);
-	first = c;
+	first = reinterpret_cast<unsigned char&>(c);
 	size_t len = 0;
-	for (int i = 0; i < sizeof(size_t) / 8; i++) {//TODO
+	for (int i = 0; i < sizeof(size_t); i++) {//TODO
 		input.get(c);
 		input_check(input);
-		len = (len << 8) | c;
+		len = (len << 8) | reinterpret_cast<unsigned char&>(c);
 	}
-	len -= sizeof(size_t) / 8 + 1;
+	len -= sizeof(size_t) + 1;
 	std::vector<unsigned char> tmp;
 	while (len > 0) {
 		input.read(reinterpret_cast<char*>(buffer), std::min(sizeof(buffer), len));
@@ -82,6 +88,7 @@ void compress(std::ifstream &input, std::ofstream &output) {
 	input.clear();
 	input.seekg(0, input.beg);
 	std::vector<unsigned char> tmp;
+	test(input);
 	while (input.good()) {
 		input.read(reinterpret_cast<char*>(buffer), sizeof(buffer));
 		for (int i = 0; i < input.gcount(); i++) {
@@ -89,6 +96,7 @@ void compress(std::ifstream &input, std::ofstream &output) {
 		}
 		my_writev(output, bv.release());
 		bv.clear();
+		test(input);
 	}
 	if (input.bad()) {
 		throw std::runtime_error("Error while reading input file");
@@ -104,7 +112,7 @@ void decompress(std::ifstream &input, std::ofstream &output) {
 		tmp[i] = buffer[i];
 	}
 	compressor compressor(my_readv(input), tmp);
-
+	test(input);
 	while (input.good()) {
 		bitreader br = my_readv(input);
 		tmp.clear();
@@ -112,6 +120,7 @@ void decompress(std::ifstream &input, std::ofstream &output) {
 			tmp.push_back(compressor.get_char(br));
 		}
 		my_writev(output, tmp);
+		test(input);
 	}
 	if (input.bad()) {
 		throw std::runtime_error("Error while reading input file");
@@ -123,11 +132,11 @@ int main(int n, char* args[]) {
 		throw std::runtime_error("Wrong number of arguments\nFormat: \"<c/d> <input filename> <output filename>\" \nUse \"c\" for compressing, \"d\" for decompressing");
 		return 1;
 	}
-	std::ifstream input(args[2]);
+	std::ifstream input(args[2], std::ios_base::binary);
 	if (!input.is_open()) {
 		throw std::runtime_error("Cannot open file for reading\n");
 	}
-	std::ofstream output(args[3]);
+	std::ofstream output(args[3], std::ios_base::binary);
 	if (!output.is_open()) {
 		throw std::runtime_error("Cannot open file for writing\n");
 	}

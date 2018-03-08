@@ -1,4 +1,8 @@
+#ifndef BITVECTOR_H
+#define BITVECTOR_H
+
 #include <vector>
+
 
 class bitvector {
 private:
@@ -17,8 +21,11 @@ private:
 	int pos, bit, last_space;
 	std::vector<unsigned char> v;
 public:
-	bitreader(int space, const std::vector<unsigned char> one);
+	bitreader(int space, const std::vector<unsigned char> &one);
 	unsigned char next();
 	bool ended() const;
 	std::vector<unsigned char> to_vector();
 };
+
+
+#endif
