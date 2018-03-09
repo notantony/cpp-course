@@ -8,7 +8,7 @@
 #include <ctime>
 
 const size_t BUFFER_SIZE = 4096 * 8;
-unsigned char buffer[BUFFER_SIZE];
+static unsigned char buffer[BUFFER_SIZE];
 
 void test(std::ifstream &input) {
     input.get();
@@ -83,7 +83,7 @@ void compress(std::ifstream &input, std::ofstream &output) {
 		progress_ttl += cnt[i];
 		progress_size += compressor.get_code(i).size() * cnt[i];
 	}
-	std::cout << "Approximate ouput file size is " << progress_size / 8 / 1024 << "kB\n";
+    std::cout << "Approximate ouput file size is " << progress_size / 8 / 1024 << " kB\n";
 
 	my_writev(output, compressor.get_leaves_code());
 	bitvector bv;
@@ -143,6 +143,9 @@ void decompress(std::ifstream &input, std::ofstream &output) {
 int main(int n, char* args[]) {
 	try {
 		double start_time = clock();
+        if (n == 2 && strcmp(args[1], "help") == 0) {
+            std::cout << "Format: \"<c/d> <input filename> <output filename>\" \nUse \"c\" for compressing, \"d\" for decompressing";
+        }
 		if (n != 4) {
 			std::cout << "Wrong number of arguments\nFormat: \"<c/d> <input filename> <output filename>\" \nUse \"c\" for compressing, \"d\" for decompressing";
 			return 1;
