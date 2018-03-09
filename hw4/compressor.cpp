@@ -1,12 +1,12 @@
 #include "compressor.h"
 
 class cmp {
-	std::vector<uint64_t> cnt;
+	std::vector<uint64_t> *cnt;
 	int pos = 256;
 public:
-	cmp(std::vector<uint64_t> &cnt) : cnt(cnt) {}
+	cmp(std::vector<uint64_t> *cnt) : cnt(cnt) {}
 	bool operator() (int a, int b) {
-		return cnt[a] > cnt[b];
+		return (*cnt)[a] > (*cnt)[b];
 	}
 };
 
@@ -24,7 +24,7 @@ const std::vector<unsigned char> &compressor::get_leaves_code() const {
 }
 
 void compressor::build_tree_c(std::vector<uint64_t> &cnt) {
-	std::priority_queue<int, std::vector<int>, cmp> q(cnt);
+	std::priority_queue<int, std::vector<int>, cmp> q(&cnt);
 	for (int i = 0; i < 256; i++) {
 		q.push(i);
 		tree.push_back(node(i));
@@ -86,10 +86,14 @@ void compressor::walk_d(size_t x, int &index) {
 unsigned char compressor::get_char(bitreader &br) const {
 	int cur = 0;
 	while (tree[cur].l != -1) {
-		if (!br.next()) {
-			cur = tree[cur].l;
+		if (!br.ended()) {
+			if (!br.next()) {
+				cur = tree[cur].l;
+			} else {
+				cur = tree[cur].r;
+			}
 		} else {
-			cur = tree[cur].r;
+			throw std::runtime_error("Error: input file is corrupted");
 		}
 	}
 	return leaves[tree[cur].leaf];

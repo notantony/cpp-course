@@ -45,10 +45,10 @@ bool bitreader::ended() const {
 	return !(pos + 1 < v.size() || (pos + 1 == v.size() && bit > last_space));
 }
 
-unsigned char bitreader::next() {
-	if (ended()) {
-		throw std::runtime_error("No elements left at the bitreader");
-	}
+unsigned char bitreader::next() { //unsafe
+	//if (ended()) {
+	//	throw std::runtime_error("No elements left at the bitreader");
+	//}
 	bit--;
 	unsigned char tmp = static_cast<unsigned char>((v[pos] & (1 << bit)) >> bit);
 	if (bit == 0) {
