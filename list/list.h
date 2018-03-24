@@ -13,14 +13,14 @@ class list {
 private:
     struct node {
         friend class list;
-        node *l = nullptr, *r = nullptr;
+        node *l = this, *r = this;
         T* value = nullptr;
 
         node();
         node(const T &);
         ~node();
     };
-    node *head = new node();
+    mutable node head;
 
 public:
     class const_iterator;
@@ -86,6 +86,8 @@ public:
 
     template<typename TT>
     friend void swap(list<TT> &a, list<TT> &b) {
+        std::swap(a.head.l, b.head.l);
+        std::swap(a.head.r, b.head.r);
         std::swap(a.head, b.head);
     }
 
@@ -269,33 +271,32 @@ bool list<T>::empty() const {
 
 template<typename T>
 typename list<T>::iterator list<T>::begin() const {
-    return iterator(head->r);
+    return iterator(head.r);
 }
 template<typename T>
 typename list<T>::iterator list<T>::end() const {
-    return iterator(head);
+    return iterator(&head);
 }
 template<typename T>
 typename list<T>::reverse_iterator list<T>::rbegin() const {
-    return reverse_iterator(head);
+    return reverse_iterator(&head);
 }
 template<typename T>
 typename list<T>::reverse_iterator list<T>::rend() const {
-    return reverse_iterator(head->r);
+    return reverse_iterator(head.r);
 }
 template<typename T>
 typename list<T>::const_iterator list<T>::cbegin() const {
-    return const_iterator(head->r);
+    return const_iterator(head.r);
 }
 template<typename T>
 typename list<T>::const_iterator list<T>::cend() const {
-    return const_iterator(head);
+    return const_iterator(&head);
 }
 
 template<typename T>
 list<T>::~list() {
     clear();
-    delete(head);
 }
 
 template<typename T>

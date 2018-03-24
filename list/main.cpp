@@ -13,6 +13,7 @@ int main()
     a.push_back(4);
     a.push_back(5);
     a.push_back(7);
+
     for(auto it = a.begin(); it!= a.end(); ++it) {
         cerr << *it << " ";
     }
@@ -100,6 +101,8 @@ int main()
     cerr << a.back();
     cerr << "\n";
     a.clear();
+
+    a = b;
     for(auto it = a.begin(); it!= a.end(); ++it) {
         cerr << *it << " ";
     }
@@ -166,7 +169,7 @@ int main()
     //av.begin() = bv.cbegin();
     auto a1 = a.begin(), a2 = ++a.begin(), a3 = ++++a.begin(), a4 = ++++++a.begin(), a5 = ++++++++a.begin();
     auto b1 = b.begin(), b2 = ++b.begin(), b3 = ++++b.begin(), b4 = ++++++b.begin(), b5 = ++++++++b.begin();
-    a.splice(a1, a, a1, a2);
+    a.splice(a5, a, a1, a5);
     cerr << "\n";
     for(auto it = a.begin(); it!= a.end(); ++it) {
         cerr << *it << " ";
@@ -175,6 +178,7 @@ int main()
     for(auto it = b.begin(); it!= b.end(); ++it) {
         cerr << *it << " ";
     }
+
     return 0;
 }
 
