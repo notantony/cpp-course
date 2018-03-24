@@ -35,6 +35,8 @@ public:
 
         iterator() = default;
         iterator(const iterator &);
+        iterator &operator=(const const_iterator &);
+        //iterator &operator=(const iterator &) = delete;
 
         bool operator==(const const_iterator &) const;
         bool operator!=(const const_iterator &) const;
@@ -297,6 +299,13 @@ template<typename T>
 list<T>::iterator::iterator(const iterator &one) : ptr(one.ptr) {}
 
 template<typename T>
+typename list<T>::iterator &list<T>::iterator::operator=(const const_iterator &one) {
+    list<T>::iterator tmp(one.ptr);
+    std::swap(*this, tmp);
+    return *this;
+}
+
+template<typename T>
 bool list<T>::iterator::operator==(const const_iterator &one) const {
     return ptr == one.ptr;
 }
@@ -312,7 +321,7 @@ T &list<T>::iterator::operator*() {
 
 template<typename T>
 typename list<T>::iterator &list<T>::iterator::operator++() {
-    return *this = this->ptr->r;
+    return *this = iterator(this->ptr->r);
 }
 template<typename T>
 typename list<T>::iterator list<T>::iterator::operator++(int) {
@@ -322,7 +331,7 @@ typename list<T>::iterator list<T>::iterator::operator++(int) {
 }
 template<typename T>
 typename list<T>::iterator &list<T>::iterator::operator--() {
-    return *this = this->ptr->l;
+    return *this = iterator(this->ptr->l);
 }
 template<typename T>
 typename list<T>::iterator list<T>::iterator::operator--(int) {
@@ -357,7 +366,7 @@ const T &list<T>::const_iterator::operator*() {
 
 template<typename T>
 typename list<T>::const_iterator &list<T>::const_iterator::operator++() {
-    return *this = this->ptr->r;
+    return *this = const_iterator(this->ptr->r);
 }
 template<typename T>
 typename list<T>::const_iterator list<T>::const_iterator::operator++(int) {
@@ -367,7 +376,7 @@ typename list<T>::const_iterator list<T>::const_iterator::operator++(int) {
 }
 template<typename T>
 typename list<T>::const_iterator &list<T>::const_iterator::operator--() {
-    return *this = this->ptr->l;
+    return *this = const_iterator(this->ptr->l);
 }
 template<typename T>
 typename list<T>::const_iterator list<T>::const_iterator::operator--(int) {

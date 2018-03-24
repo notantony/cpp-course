@@ -128,6 +128,8 @@ int main()
     cerr << (one.cend() == one.begin());
     cerr << (one.end() == one.begin());
     cerr << (one.end() == one.begin());
+    auto itt = one.begin();
+    one.begin() = one.cbegin();
     return 0;
 }
 
