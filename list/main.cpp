@@ -123,6 +123,11 @@ int main()
     }
     cerr << "\n";
 
+    list<int> one;
+    cerr << (one.begin() == one.cend());
+    cerr << (one.cend() == one.begin());
+    cerr << (one.end() == one.begin());
+    cerr << (one.end() == one.begin());
     return 0;
 }
 

@@ -23,6 +23,7 @@ private:
     node *head = new node();
 
 public:
+    class const_iterator;
     class iterator {
     friend class list;
     public:
@@ -35,8 +36,8 @@ public:
         iterator() = default;
         iterator(const iterator &);
 
-        bool operator==(const iterator &one);
-        bool operator!=(const iterator &one);
+        bool operator==(const const_iterator &) const;
+        bool operator!=(const const_iterator &) const;
 
         T &operator*();
 
@@ -62,9 +63,8 @@ public:
             const_iterator() = default;
             const_iterator(const const_iterator &);
             const_iterator(const iterator &);
-
-            bool operator==(const const_iterator &one);
-            bool operator!=(const const_iterator &one);
+            bool operator==(const const_iterator &one) const;
+            bool operator!=(const const_iterator &one) const;
 
             const T &operator*();
 
@@ -297,11 +297,11 @@ template<typename T>
 list<T>::iterator::iterator(const iterator &one) : ptr(one.ptr) {}
 
 template<typename T>
-bool list<T>::iterator::operator==(const iterator &one) {
+bool list<T>::iterator::operator==(const const_iterator &one) const {
     return ptr == one.ptr;
 }
 template<typename T>
-bool list<T>::iterator::operator!=(const iterator &one) {
+bool list<T>::iterator::operator!=(const const_iterator &one) const {
     return ptr != one.ptr;
 }
 
@@ -342,11 +342,11 @@ template<typename T>
 list<T>::const_iterator::const_iterator(const iterator &one) : ptr(one.ptr) {}
 
 template<typename T>
-bool list<T>::const_iterator::operator==(const const_iterator &one) {
+bool list<T>::const_iterator::operator==(const const_iterator &one) const {
     return ptr == one.ptr;
 }
 template<typename T>
-bool list<T>::const_iterator::operator!=(const const_iterator &one) {
+bool list<T>::const_iterator::operator!=(const const_iterator &one) const {
     return ptr != one.ptr;
 }
 
