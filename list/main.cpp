@@ -125,7 +125,7 @@ int main()
     for(auto it = a.begin(); it!= a.end(); ++it) {
         cerr << *it << " ";
     }
-    cerr << "\n";
+    cerr << "adsasdsadasdaasd\n";
 
     list<int> one;
     cerr << (one.begin() == one.cend());
@@ -166,10 +166,23 @@ int main()
     for(auto it = b.begin(); it!= b.end(); ++it) {
         cerr << *it << " ";
     }
-    //av.begin() = bv.cbegin();
+
+
     auto a1 = a.begin(), a2 = ++a.begin(), a3 = ++++a.begin(), a4 = ++++++a.begin(), a5 = ++++++++a.begin();
     auto b1 = b.begin(), b2 = ++b.begin(), b3 = ++++b.begin(), b4 = ++++++b.begin(), b5 = ++++++++b.begin();
-    a.splice(a5, a, a1, a5);
+    a.splice(a3, a, a1, a3);
+
+    //a.clear();
+    cerr << "\n1111111\n";
+    for(auto it = a.begin(); it!= a.end(); ++it) {
+        cerr << *it << " ";
+    }
+    cerr << "\n";
+    for(auto it = b.begin(); it!= b.end(); ++it) {
+        cerr << *it << " ";
+    }
+    cerr << "\n2222222\n";
+
     cerr << "\n";
     for(auto it = a.begin(); it!= a.end(); ++it) {
         cerr << *it << " ";
@@ -178,6 +191,66 @@ int main()
     for(auto it = b.begin(); it!= b.end(); ++it) {
         cerr << *it << " ";
     }
+    cerr << "\n";
+    //a.clear();
+
+    b.clear();
+
+    list<int>A, B;
+    A.clear();
+    B.clear();
+    A.push_back(1);
+    A.push_back(2);
+    A.push_back(3);
+    A.push_back(4);
+    B.push_back(11);
+    B.push_back(22);
+    B.push_back(33);
+    B.push_back(44);
+    B.push_back(55);
+    //swap(A, b);
+    cerr << "\n eeee "  << " \n";
+    cerr << "\n";
+    for(auto it = A.begin(); it!= A.end(); ++it) {
+        cerr << *it << " ";
+    }
+    B = A;
+    A.push_back(6);
+    A.splice(A.end(), B);
+    cerr << "\n";
+    for(auto it = B.begin(); it!= B.end(); ++it) {
+        cerr << *it << " ";
+    }
+    cerr << "\n";
+    for(auto it = A.begin(); it!= A.end(); ++it) {
+        cerr << *it << " ";
+    }
+    A.clear();
+    B.clear();
+
+    A.clear();
+    B.clear();
+    A.push_back(1);
+    A.push_back(2);
+    A.push_back(3);
+    A.push_back(4);
+
+    B.push_back(11);
+    B.push_back(22);
+    B.push_back(33);
+    B.push_back(44);
+
+    swap(B, A);
+    swap(B, A);
+    cerr << "\n";
+    for(auto it = B.begin(); it!= B.end(); ++it) {
+        cerr << *it << " ";
+    }
+    cerr << "\n";
+    for(auto it = A.begin(); it!= A.end(); ++it) {
+        cerr << *it << " ";
+    }
+
 
     return 0;
 }

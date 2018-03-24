@@ -84,12 +84,11 @@ public:
     typedef std::reverse_iterator<iterator> reverse_iterator;
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-    template<typename TT>
-    friend void swap(list<TT> &a, list<TT> &b) {
-        std::swap(a.head.l, b.head.l);
-        std::swap(a.head.r, b.head.r);
-        std::swap(a.head, b.head);
-    }
+    //template<typename TT>
+    //friend void swap(list<TT> &a, list<TT> &b) {
+    //    a.clear();
+    //    a->splice(begin(), tmp, tmp.begin(), tmp.end());
+    //}
 
     list();
     list(const list<T> &);
@@ -216,7 +215,10 @@ void list<T>::clear() {
 template<typename T>
 void list<T>::operator=(const list<T> &one) {
     list<T> tmp(one);
-    swap(*this, tmp);
+    this->clear();
+    this->splice(end(), tmp);
+    //this->splice(begin(), tmp, tmp.begin(), tmp.end());
+    //swap(*this, tmp);
 }
 
 template<typename T>
