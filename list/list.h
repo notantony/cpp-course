@@ -188,7 +188,10 @@ void list<T>::splice(const const_iterator &pos, list<T> &one, const const_iterat
     splice(pos, one, at, ++tmp);
 }
 template<typename T>
-void list<T>::splice(const const_iterator &pos, list<T> &one, const const_iterator &from, const const_iterator &to) {
+void list<T>::splice(const const_iterator &pos, list<T> &, const const_iterator &from, const const_iterator &to) {
+    if (from == to) {
+        return;
+    }
     node *next = pos.ptr;
     node *prev = pos.ptr->l;
     node *old_next = to.ptr;
