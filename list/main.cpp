@@ -5,7 +5,7 @@
 using namespace std;
 
 int main()
-{
+{    
     list<int> a;
     a.push_back(1);
     a.push_back(2);
@@ -241,16 +241,122 @@ int main()
     B.push_back(44);
 
     swap(B, A);
-    swap(B, A);
-    cerr << "\n";
-    for(auto it = B.begin(); it!= B.end(); ++it) {
-        cerr << *it << " ";
-    }
+    swap(A, B);
     cerr << "\n";
     for(auto it = A.begin(); it!= A.end(); ++it) {
         cerr << *it << " ";
     }
+    cerr << "\n";
+    for(auto it = B.begin(); it!= B.end(); ++it) {
+        cerr << *it << " ";
+    }
 
+
+    list<double> aa;
+    aa.push_back(1.0);
+    aa.push_back(2.0);
+    aa.push_back(3.0);
+    aa.push_back(4.0);
+    aa.push_back(5.0);
+    aa.push_back(6.0);
+
+    list<double> bb;
+    bb.push_back(1.1);
+    bb.push_back(2.1);
+    bb.push_back(3.1);
+    bb.push_back(4.1);
+    bb.push_back(5.1);
+    bb.push_back(6.1);
+
+    cerr << "\n";
+    cerr << "\n";
+
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+
+    swap(aa, bb);
+
+    cerr << "1:\n";
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+
+ bb = aa;
+
+    cerr << "1:\n";
+
+
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+
+
+
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+
+
+
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+
+
+
+
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+
+
+
+
+    for (auto &it : aa) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
+    for (auto &it : bb) {
+        cerr << it << " ";
+    }
+    cerr << "\n";
 
     return 0;
 }
