@@ -86,6 +86,23 @@ public:
 
 
     friend void swap(list &a, list &b) {
+        if (a.head.l == a.head.r && b.head.l == b.head.r) {
+            return;
+        }
+        if (a.head.l == a.head.r) {
+            b.head.l->r = &a.head;
+            b.head.r->l = &a.head;
+            a.head.l = b.head.l;
+            a.head.r = b.head.r;
+            b.head.l = &b.head;
+            b.head.r = &b.head;
+            return;
+        }
+        if (b.head.l == b.head.r) {
+            swap(b, a);
+            return;
+        }
+
         std::swap(a.head.l->r, b.head.l->r);
         std::swap(a.head.r->l, b.head.r->l);
         std::swap(a.head.r, b.head.r);
@@ -218,10 +235,10 @@ void list<T>::clear() {
 template<typename T>
 void list<T>::operator=(const list<T> &one) {
     list<T> tmp(one);
-    this->clear();
-    this->splice(end(), tmp);
+    //this->clear();
+    //this->splice(end(), tmp);
     //this->splice(begin(), tmp, tmp.begin(), tmp.end());
-    //swap(*this, tmp);
+    swap(*this, tmp);
 }
 
 template<typename T>

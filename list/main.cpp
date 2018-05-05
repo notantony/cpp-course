@@ -260,12 +260,12 @@ int main()
     aa.push_back(5.0);
     aa.push_back(6.0);
 
-    list<double> bb;
+    list<double> bb;/*
     bb.push_back(1.1);
     bb.push_back(2.1);
     bb.push_back(3.1);
     bb.push_back(4.1);
-    bb.push_back(5.1);
+    bb.push_back(5.1);*/
     bb.push_back(6.1);
 
     cerr << "\n";
@@ -283,7 +283,7 @@ int main()
 
     swap(aa, bb);
 
-    cerr << "1:\n";
+    cerr << "1111:\n";
 
     for (auto &it : aa) {
         cerr << it << " ";
@@ -294,12 +294,12 @@ int main()
     }
     cerr << "\n";
 
+    /*
  bb = aa;
 
     cerr << "1:\n";
 
 
-
     for (auto &it : aa) {
         cerr << it << " ";
     }
@@ -357,7 +357,7 @@ int main()
         cerr << it << " ";
     }
     cerr << "\n";
-
+*/
     return 0;
 }
 
