@@ -1,1 +1,0 @@
-/home/notantony/Programs/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++  -g  -rdynamic CMakeFiles/hw5.dir/main.cpp.o  -o hw5 
