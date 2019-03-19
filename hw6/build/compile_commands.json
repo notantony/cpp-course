@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/notantony/Desktop/cpp-course/hw6/build",
-  "command": "/home/notantony/Programs/clang+llvm-6.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang++    -g   -std=gnu++14 -o CMakeFiles/hw6.dir/main.cpp.o -c /home/notantony/Desktop/cpp-course/hw6/main.cpp",
-  "file": "/home/notantony/Desktop/cpp-course/hw6/main.cpp"
-}
-]
