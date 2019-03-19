@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/notantony/Desktop/cpp-course/hw6/bind.h
+iostream
+-
+tuple
+-
+type_traits
+-
+utility
+-
+
+/home/notantony/Desktop/cpp-course/hw6/main.cpp
+set
+-
+vector
+-
+algorithm
+-
+assert.h
+-
+tuple
+-
+functional
+-
+bind.h
+/home/notantony/Desktop/cpp-course/hw6/bind.h
+
